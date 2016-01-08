@@ -23,16 +23,18 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.FileNotFoundException;
 
-public class LogInitListener implements ServletContextListener {
+public abstract class LogInitListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
 
-        String logConfigLocation = System.getenv("PROFESSIONSEARCH_LOGGING_CONFIG");
+        String logConfigLocation = logConfigLocation();
+        System.out.println("Using logging configuation file: " + logConfigLocation);
+
         int refreshInterval = 5000; // Check the configuration file for changes every five seconds
         if (logConfigLocation == null) {
             /*
-            * If the environment variable for the log location has not been set,
+            * If the config location has not been set,
             * we use the configuration file log4j.properties in the classpath.
             *
             * In that case we do not specify a refresh interval, since the configuration
@@ -56,6 +58,8 @@ public class LogInitListener implements ServletContextListener {
         }
 
     }
+
+    protected abstract String logConfigLocation();
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
