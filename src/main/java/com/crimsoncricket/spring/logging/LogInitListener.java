@@ -17,11 +17,8 @@
 
 package com.crimsoncricket.spring.logging;
 
-import org.springframework.util.Log4jConfigurer;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.io.FileNotFoundException;
 
 public abstract class LogInitListener implements ServletContextListener {
 
@@ -29,34 +26,8 @@ public abstract class LogInitListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
 
         String logConfigLocation = logConfigLocation();
-        System.out.println("Using logging configuation file: " + logConfigLocation);
-
-        int refreshInterval = 5000; // Check the configuration file for changes every five seconds
-        if (logConfigLocation == null) {
-            /*
-            * If the config location has not been set,
-            * we use the configuration file log4j.properties in the classpath.
-            *
-            * In that case we do not specify a refresh interval, since the configuration
-            * will not change during the lifetime of the servlet context.
-            */
-            logConfigLocation = "classpath:log4j.properties";
-            refreshInterval = 0;
-        }
-
-        try {
-
-            if (refreshInterval == 0) {
-                Log4jConfigurer.initLogging(logConfigLocation);
-            } else {
-                Log4jConfigurer.initLogging(logConfigLocation, refreshInterval);
-            }
-
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
+        LogConfigurer configurer = new LogConfigurer(logConfigLocation);
+        configurer.configureLogging();
     }
 
     protected abstract String logConfigLocation();
