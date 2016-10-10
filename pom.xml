@@ -19,7 +19,7 @@
     <groupId>com.crimsoncricket</groupId>
     <artifactId>spring-logging</artifactId>
     <packaging>jar</packaging>
-    <version>1.2-SNAPHSHOT</version>
+    <version>1.2.0.RELEASE</version>
     <name>spring-logging</name>
     <url>http://maven.apache.org</url>
     <dependencies>
