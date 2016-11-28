@@ -19,7 +19,7 @@
     <groupId>com.crimsoncricket</groupId>
     <artifactId>spring-logging</artifactId>
     <packaging>jar</packaging>
-    <version>1.2.0.RELEASE</version>
+    <version>1.2.1.RELEASE</version>
     <name>spring-logging</name>
     <url>http://maven.apache.org</url>
     <dependencies>
@@ -29,6 +29,13 @@
             <artifactId>spring-core</artifactId>
             <version>4.1.6.RELEASE</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
+
         </dependency>
 
         <dependency>
